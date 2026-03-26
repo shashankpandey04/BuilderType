@@ -1,0 +1,411 @@
+:root {
+  --bg-0:      #f0f4f8;
+  --bg-1:      #e4ecf4;
+  --panel:     rgba(255, 255, 255, 0.92);
+  --panel-soft:rgba(240, 246, 252, 0.85);
+  --line:      rgba(0, 82, 136, 0.15);
+  --text:      #0d1f2d;
+  --muted:     #4a6278;
+  --accent:    #0073bb;
+  --accent-2:  #e07b00;
+  --correct:   #1a8a3c;
+  --incorrect: #d93025;
+  --pending:   #8aa4b8;
+  --cursor:    #0073bb;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { width: 100%; min-height: 100%; }
+
+body {
+  color: var(--text);
+  background: radial-gradient(circle at 10% 8%,  #c8dff0 0%, transparent 45%),
+              radial-gradient(circle at 85% 85%,  #d4e8f5 0%, transparent 38%),
+              linear-gradient(140deg, var(--bg-0), var(--bg-1));
+  font-family: "Archivo", sans-serif;
+}
+
+.bg-layer {
+  position: fixed; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 115, 187, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 115, 187, 0.06) 1px, transparent 1px);
+  background-size: 46px 46px;
+  opacity: 0.5;
+}
+
+/* ── TOP BAR ── */
+.app-topbar {
+  position: sticky; top: 0; z-index: 40;
+  height: 78px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+}
+
+.brand-wrap { display: flex; align-items: center; gap: 12px; }
+
+.brand-logo {
+  width: 48px; height: 48px;
+  object-fit: cover; border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #fff;
+}
+
+.brand-text { display: flex; flex-direction: column; gap: 1px; }
+
+.brand-eyebrow {
+  color: var(--accent-2);
+  font-size: 10px; letter-spacing: 1.6px;
+  text-transform: uppercase;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.brand-title { font-size: 24px; font-weight: 700; letter-spacing: -0.2px; }
+
+.top-actions { display: flex; align-items: center; gap: 10px; }
+
+.top-link {
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #0059a0);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px; font-weight: 700;
+}
+
+/* ── LAYOUT ── */
+.screen {
+  position: relative; z-index: 2;
+  width: min(1200px, 100%); margin: 0 auto;
+  padding: 22px;
+  display: grid; grid-template-columns: 36% 64%;
+  gap: 14px; min-height: calc(100vh - 78px);
+}
+
+.hero-card, .challenge-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+.hero-card {
+  padding: 22px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.hero-kicker {
+  font-size: 11px; letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.hero-card h1 { font-size: clamp(36px, 4vw, 62px); line-height: 0.96; }
+
+.hero-copy {
+  color: var(--muted); line-height: 1.55;
+  font-size: 15px; max-width: 95%;
+}
+
+/* ── STATS ── */
+.stats-row {
+  margin-top: auto;
+  display: grid; grid-template-columns: repeat(3, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+.stat-box {
+  border: 1px solid rgba(0, 115, 187, 0.2);
+  border-radius: 12px;
+  background: var(--panel-soft);
+  padding: 12px; text-align: center;
+}
+
+.timer-box { border-color: rgba(224, 123, 0, 0.45); }
+
+.stat-label {
+  display: block; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 1.4px;
+  color: var(--muted); margin-bottom: 6px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.stat-value {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 31px; line-height: 1; font-weight: 700;
+  color: var(--accent);
+}
+
+.timer-box .stat-value { color: var(--accent-2); }
+
+.timer-box.danger .stat-value {
+  color: var(--incorrect);
+  animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 1; }
+  to   { opacity: 0.45; }
+}
+
+/* ── CHALLENGE CARD ── */
+.challenge-card {
+  padding: 18px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.section-head h2 { font-size: 24px; line-height: 1; }
+.section-head p  { color: var(--muted); margin-top: 6px; font-size: 14px; }
+
+.paragraph-selector { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.para-btn {
+  border: 1px solid rgba(0, 115, 187, 0.25);
+  background: rgba(0, 115, 187, 0.05);
+  color: var(--muted);
+  border-radius: 8px; padding: 8px 12px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s;
+}
+
+.para-btn.active {
+  background: rgba(0, 115, 187, 0.12);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── TYPING CARD ── */
+.typing-card {
+  border: 1px solid rgba(0, 115, 187, 0.2);
+  border-radius: 14px;
+  background: #fff;
+  padding: 18px; min-height: 240px;
+  position: relative;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.typing-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 115, 187, 0.12);
+}
+
+.text-display {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 18px; line-height: 1.9;
+  color: var(--pending);
+  word-break: break-word; min-height: 176px;
+  user-select: none; cursor: text;
+}
+
+.char { position: relative; transition: color 0.05s; }
+.char.correct   { color: var(--correct); }
+.char.incorrect {
+  color: var(--incorrect);
+  background: rgba(217, 48, 37, 0.08);
+  border-radius: 2px;
+}
+.char.cursor::after {
+  content: "";
+  position: absolute; left: 0; bottom: 2px;
+  width: 100%; height: 2px;
+  background: var(--cursor); border-radius: 2px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+.input-box {
+  position: absolute; opacity: 0;
+  pointer-events: none; width: 1px; height: 1px;
+}
+
+/* ── CONTROLS ── */
+.controls { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn-primary, .btn-ghost {
+  border-radius: 10px; padding: 10px 16px;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer; border: 1px solid transparent;
+  font-family: "Archivo", sans-serif;
+  transition: all 0.15s;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #0059a0);
+  color: #fff;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+
+.btn-ghost {
+  background: #fff;
+  border-color: rgba(0, 115, 187, 0.3);
+  color: var(--text);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── MODALS ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(13, 31, 45, 0.55);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 300;
+}
+.modal-overlay.hidden { display: none; }
+
+.modal-card {
+  width: min(450px, 95vw);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 115, 187, 0.2);
+  background: #fff;
+  padding: 30px; text-align: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+}
+
+.modal-logo {
+  width: 66px; height: 66px;
+  object-fit: cover; border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.1);
+  margin-bottom: 14px;
+}
+
+.modal-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+
+.modal-sub {
+  color: var(--muted); font-size: 14px;
+  line-height: 1.6; margin-bottom: 18px;
+}
+
+.name-input {
+  width: 100%;
+  border: 1px solid rgba(0, 115, 187, 0.3);
+  background: #f5f9fc;
+  color: var(--text);
+  border-radius: 10px; padding: 12px;
+  font-size: 16px;
+  font-family: "IBM Plex Mono", monospace;
+  text-align: center; outline: none;
+  transition: border-color 0.2s;
+}
+.name-input:focus { border-color: var(--accent); }
+
+.name-error { color: var(--incorrect); font-size: 12px; margin-top: 8px; }
+.name-error.hidden { display: none; }
+
+.name-countdown {
+  margin-top: 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px; color: var(--accent-2);
+  border: 1px solid rgba(224, 123, 0, 0.35);
+  background: rgba(224, 123, 0, 0.07);
+  border-radius: 10px; padding: 8px 10px;
+}
+.name-countdown.hidden { display: none; }
+
+.btn-full { width: 100%; margin-top: 12px; }
+
+/* ── RESULT OVERLAY ── */
+.result-overlay {
+  position: fixed; inset: 0;
+  background: rgba(13, 31, 45, 0.55);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 250;
+}
+.result-overlay.hidden { display: none; }
+
+.result-card {
+  border-radius: 18px;
+  border: 1px solid rgba(0, 115, 187, 0.2);
+  background: #fff;
+  padding: 28px; width: min(640px, 95vw);
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+}
+
+.result-title { font-size: 30px; font-weight: 800; margin-bottom: 14px; }
+
+.result-stats {
+  display: grid; grid-template-columns: repeat(4, minmax(86px, 1fr));
+  gap: 10px; margin-bottom: 14px;
+}
+
+.r-stat {
+  border: 1px solid rgba(0, 115, 187, 0.15);
+  border-radius: 12px;
+  background: #f5f9fc;
+  padding: 10px;
+}
+
+.r-label {
+  display: block; font-size: 10px;
+  letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 4px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.r-value {
+  font-size: 27px; line-height: 1;
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--accent);
+}
+
+.result-rank   { min-height: 28px; font-size: 20px; margin-bottom: 8px; }
+.global-rank   { min-height: 20px; color: var(--muted); margin-bottom: 14px; }
+
+.result-actions {
+  display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 980px) {
+  .screen { grid-template-columns: 1fr; gap: 12px; }
+  .hero-card h1 { font-size: 44px; }
+}
+
+@media (max-width: 640px) {
+  .app-topbar {
+    height: auto; flex-direction: column;
+    align-items: flex-start; gap: 10px; padding: 12px;
+  }
+  .screen { padding: 12px; min-height: auto; }
+  .result-stats { grid-template-columns: repeat(2, minmax(86px, 1fr)); }
+  .result-actions { grid-template-columns: 1fr; }
+  .text-display { font-size: 16px; line-height: 1.8; }
+}
+
+/* ── PRIZE POPUP ── */
+.prize-card {
+  border-color: rgba(224, 123, 0, 0.4) !important;
+  box-shadow: 0 0 60px rgba(224, 123, 0, 0.15) !important;
+}
+
+.prize-emoji {
+  font-size: 64px; line-height: 1; margin-bottom: 12px;
+  animation: prizeFloat 2s ease-in-out infinite;
+}
+@keyframes prizeFloat {
+  0%,100% { transform: translateY(0) rotate(-4deg); }
+  50%      { transform: translateY(-8px) rotate(4deg); }
+}
+
+.prize-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #e07b00, #d946ef);
+  color: #fff; font-size: 15px; font-weight: 700;
+  padding: 10px 28px; border-radius: 40px;
+  margin-bottom: 24px; letter-spacing: 0.5px;
+  box-shadow: 0 4px 20px rgba(224, 123, 0, 0.3);
+}

@@ -1,0 +1,1213 @@
+:root {
+  --bg0: #061423;
+  --bg1: #0b2236;
+  --panel: rgba(10, 25, 41, 0.84);
+  --panel-strong: rgba(14, 33, 53, 0.96);
+  --line: rgba(120, 170, 210, 0.28);
+  --text: #e8f3ff;
+  --muted: #95b5d2;
+  --amber: #ffb347;
+  --cyan: #44d9e6;
+  --lime: #9ce67f;
+  --rose: #ff7f96;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at 15% 15%, #11395c 0%, transparent 45%),
+              radial-gradient(circle at 90% 80%, #1b3952 0%, transparent 42%),
+              linear-gradient(145deg, var(--bg0), var(--bg1));
+  color: var(--text);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.screen-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(130, 185, 225, 0.07) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(130, 185, 225, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.32;
+}
+
+.screen-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity: 0.18;
+}
+
+.top-strip {
+  position: relative;
+  z-index: 2;
+  height: 104px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 30px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(8, 20, 34, 0.95), rgba(8, 20, 34, 0.78));
+}
+
+.brand-kicker {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  text-transform: uppercase;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.brand-title {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.brand-sub {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.top-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(128px, 1fr));
+  gap: 10px;
+  width: min(58vw, 760px);
+}
+
+.metric-chip {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 8px 12px;
+  min-height: 66px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.metric-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.metric-value {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cyan);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.arena {
+  position: relative;
+  z-index: 2;
+  height: calc(100vh - 104px);
+  display: grid;
+  grid-template-columns: 39% 61%;
+  gap: 14px;
+  padding: 14px;
+}
+
+.title-stage,
+.leader-stage {
+  min-height: 0;
+}
+
+.title-stage {
+  display: grid;
+  grid-template-rows: 1.35fr 1fr auto;
+  gap: 14px;
+}
+
+.stage-card {
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  padding: 18px;
+}
+
+.stage-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: var(--amber);
+  margin-bottom: 10px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.stage-hero h1 {
+  font-size: clamp(34px, 4.2vw, 58px);
+  line-height: 0.98;
+  margin-bottom: 10px;
+}
+
+.stage-hero p {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 95%;
+  line-height: 1.5;
+}
+
+.stage-lead {
+  font-size: 17px;
+  color: #cde7ff;
+  margin-bottom: 14px;
+  line-height: 1.45;
+}
+
+.stage-points {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stage-point {
+  border: 1px solid rgba(120, 170, 210, 0.2);
+  background: rgba(9, 23, 37, 0.6);
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.point-title {
+  font-family: "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  font-size: 11px;
+  color: var(--amber);
+}
+
+.point-copy {
+  font-size: 14px;
+  line-height: 1.35;
+  color: #d7ecff;
+}
+
+.stage-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flow-line {
+  font-size: 20px;
+  padding: 8px 0;
+  border-top: 1px dashed rgba(130, 185, 225, 0.2);
+}
+
+.flow-line:first-of-type {
+  border-top: 0;
+}
+
+.stage-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.play-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #0c2136;
+  background: linear-gradient(130deg, var(--amber), #ffd17b);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.leader-stage {
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+  padding: 16px;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto 1fr;
+  gap: 10px;
+  min-height: 0;
+}
+
+.round-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid rgba(120, 170, 210, 0.2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(8, 23, 39, 0.75);
+}
+
+.round-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.round-control label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.round-control select {
+  border: 1px solid rgba(120, 170, 210, 0.35);
+  background: rgba(16, 38, 57, 0.92);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 7px 10px;
+  min-width: 230px;
+  font-size: 13px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.round-range {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+  text-align: right;
+}
+
+.round-winner {
+  border: 1px solid rgba(255, 190, 95, 0.28);
+  background: rgba(44, 33, 16, 0.4);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #ffd490;
+  font-size: 14px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.panel-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.voice-toggle {
+  border: 1px solid rgba(120, 170, 210, 0.45);
+  background: rgba(12, 31, 49, 0.9);
+  color: #d8eeff;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-family: "IBM Plex Mono", monospace;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+}
+
+.voice-toggle:hover {
+  border-color: rgba(156, 230, 127, 0.7);
+  color: #e7ffd8;
+}
+
+.voice-toggle.off {
+  color: var(--muted);
+  border-color: rgba(120, 170, 210, 0.25);
+}
+
+.panel-title-row h2,
+.panel-title-row h3 {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.panel-title-row h3 {
+  font-size: 20px;
+}
+
+.panel-pulse {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: var(--lime);
+  font-family: "IBM Plex Mono", monospace;
+  position: relative;
+  padding-left: 14px;
+}
+
+.panel-pulse::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 10px var(--lime);
+  animation: pulse 1.1s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+.podium-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.podium-card {
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(9, 26, 43, 0.92);
+  padding: 12px;
+  min-height: 162px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.podium-card.rank-1 {
+  border-color: rgba(255, 190, 95, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(255, 190, 95, 0.25);
+}
+
+.podium-card.rank-2 {
+  border-color: rgba(126, 196, 237, 0.6);
+}
+
+.podium-card.rank-3 {
+  border-color: rgba(255, 127, 150, 0.65);
+}
+
+.podium-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.podium-medal {
+  font-size: 24px;
+}
+
+.podium-speed {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.podium-name {
+  font-size: 24px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.podium-meta {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.4px;
+}
+
+.list-head {
+  border-top: 1px solid rgba(120, 170, 210, 0.2);
+  padding-top: 10px;
+}
+
+.list-note {
+  color: var(--muted);
+  font-size: 12px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.leader-list {
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.leader-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leader-list::-webkit-scrollbar-thumb {
+  background: rgba(120, 170, 210, 0.34);
+  border-radius: 4px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 52px 1fr 90px 78px 172px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(120, 170, 210, 0.14);
+  background: rgba(8, 22, 36, 0.82);
+  min-height: 52px;
+  padding: 0 10px;
+}
+
+.row.rank-1,
+.row.rank-2,
+.row.rank-3 {
+  border-color: rgba(255, 190, 95, 0.42);
+  background: rgba(18, 34, 50, 0.94);
+}
+
+.row-rank {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  color: var(--amber);
+  font-size: 17px;
+}
+
+.row-name {
+  font-size: 18px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-wpm,
+.row-acc,
+.row-time {
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.row-wpm {
+  color: var(--cyan);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.empty-state {
+  border: 1px dashed rgba(120, 170, 210, 0.35);
+  border-radius: 12px;
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  padding: 12px;
+}
+
+/* ── TV Mode (applies 1700px+ scales on any device) ────────────────────────── */
+
+.tv-mode .top-strip {
+  height: 108px;
+  padding: 14px 26px;
+}
+
+.tv-mode .brand-kicker {
+  font-size: 13px;
+}
+
+.tv-mode .brand-title {
+  font-size: 38px;
+}
+
+.tv-mode .brand-sub {
+  font-size: 14px;
+}
+
+.tv-mode .top-metrics {
+  width: min(54vw, 860px);
+  gap: 10px;
+}
+
+.tv-mode .metric-chip {
+  min-height: 70px;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.tv-mode .metric-label {
+  font-size: 12px;
+}
+
+.tv-mode .metric-value {
+  font-size: 27px;
+}
+
+.tv-mode .arena {
+  height: calc(100vh - 108px);
+  grid-template-columns: 36% 64%;
+  gap: 12px;
+  padding: 12px;
+}
+
+.tv-mode .stage-card {
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.tv-mode .stage-eyebrow {
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.tv-mode .stage-hero h1 {
+  font-size: clamp(42px, 3.8vw, 58px);
+}
+
+.tv-mode .stage-hero p {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.tv-mode .stage-lead {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tv-mode .stage-points {
+  gap: 6px;
+}
+
+.tv-mode .stage-point {
+  padding: 7px 8px;
+}
+
+.tv-mode .point-title {
+  font-size: 10px;
+}
+
+.tv-mode .point-copy {
+  font-size: 13px;
+}
+
+.tv-mode .flow-line {
+  font-size: 16px;
+  padding: 6px 0;
+}
+
+.tv-mode .play-link {
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 16px;
+}
+
+.tv-mode .panel-title-row h2 {
+  font-size: 25px;
+}
+
+.tv-mode .panel-title-row h3 {
+  font-size: 22px;
+}
+
+.tv-mode .panel-pulse,
+.tv-mode .list-note,
+.tv-mode .round-control label,
+.tv-mode .round-range {
+  font-size: 12px;
+}
+
+.tv-mode .voice-toggle {
+  font-size: 10px;
+  padding: 4px 8px;
+}
+
+.tv-mode .round-control select {
+  min-width: 260px;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.tv-mode .round-winner {
+  font-size: 14px;
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+
+.tv-mode .podium-grid {
+  gap: 10px;
+}
+
+.tv-mode .podium-card {
+  min-height: 168px;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.tv-mode .podium-medal {
+  font-size: 28px;
+}
+
+.tv-mode .podium-speed {
+  font-size: 24px;
+}
+
+.tv-mode .podium-name {
+  font-size: 24px;
+}
+
+.tv-mode .podium-meta {
+  font-size: 13px;
+}
+
+.tv-mode .leader-list {
+  gap: 7px;
+}
+
+.tv-mode .row {
+  grid-template-columns: 58px 1fr 102px 96px 180px;
+  min-height: 58px;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+.tv-mode .row-rank {
+  font-size: 20px;
+}
+
+.tv-mode .row-name {
+  font-size: 20px;
+}
+
+.tv-mode .row-wpm,
+.tv-mode .row-acc,
+.tv-mode .row-time {
+  font-size: 15px;
+}
+
+.tv-mode .row-wpm {
+  font-size: 18px;
+}
+
+.tv-compact .top-strip {
+  height: 96px;
+  padding: 12px 20px;
+}
+
+.tv-compact .brand-title {
+  font-size: 32px;
+}
+
+.tv-compact .brand-sub {
+  font-size: 12px;
+}
+
+.tv-compact .top-metrics {
+  width: min(52vw, 780px);
+  gap: 8px;
+}
+
+.tv-compact .metric-chip {
+  min-height: 60px;
+  padding: 8px 10px;
+}
+
+.tv-compact .metric-value {
+  font-size: 23px;
+}
+
+.tv-compact .arena {
+  height: calc(100vh - 96px);
+  grid-template-columns: 31% 69%;
+  gap: 10px;
+  padding: 10px;
+}
+
+.tv-compact .title-stage {
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: 8px;
+}
+
+.tv-compact .stage-flow,
+.tv-compact .stage-link {
+  display: none;
+}
+
+.tv-compact .stage-card {
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.tv-compact .stage-eyebrow {
+  font-size: 10px;
+  margin-bottom: 6px;
+}
+
+.tv-compact .stage-hero h1 {
+  font-size: clamp(30px, 2.8vw, 40px);
+  margin-bottom: 6px;
+}
+
+.tv-compact .stage-hero p {
+  font-size: 12px;
+  line-height: 1.32;
+}
+
+.tv-compact .stage-lead {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.tv-compact .stage-points {
+  gap: 5px;
+}
+
+.tv-compact .stage-point {
+  border-radius: 8px;
+  padding: 6px 7px;
+}
+
+.tv-compact .point-title {
+  font-size: 9px;
+}
+
+.tv-compact .point-copy {
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.tv-compact .flow-line {
+  font-size: 14px;
+  padding: 4px 0;
+}
+
+.tv-compact .play-link {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.tv-compact .leader-stage {
+  border-radius: 14px;
+  padding: 12px;
+  gap: 7px;
+}
+
+.tv-compact .panel-title-row h2 {
+  font-size: 22px;
+}
+
+.tv-compact .panel-title-row h3 {
+  font-size: 18px;
+}
+
+.tv-compact .voice-toggle {
+  font-size: 9px;
+  padding: 4px 7px;
+}
+
+.tv-compact .round-toolbar {
+  padding: 6px 8px;
+}
+
+.tv-compact .round-control select {
+  min-width: 220px;
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+.tv-compact .round-winner {
+  font-size: 13px;
+  padding: 7px 9px;
+}
+
+.tv-compact .podium-grid {
+  gap: 8px;
+}
+
+.tv-compact .podium-card {
+  min-height: 132px;
+  padding: 8px;
+}
+
+.tv-compact .podium-medal {
+  font-size: 23px;
+}
+
+.tv-compact .podium-speed {
+  font-size: 20px;
+}
+
+.tv-compact .podium-name {
+  font-size: 20px;
+}
+
+.tv-compact .podium-meta {
+  font-size: 12px;
+}
+
+.tv-compact .leader-list {
+  gap: 6px;
+}
+
+.tv-compact .row {
+  grid-template-columns: 52px 1fr 88px 84px 152px;
+  min-height: 52px;
+  border-radius: 9px;
+  padding: 0 8px;
+}
+
+.tv-compact .row-rank {
+  font-size: 17px;
+}
+
+.tv-compact .row-name {
+  font-size: 17px;
+}
+
+.tv-compact .row-wpm,
+.tv-compact .row-acc,
+.tv-compact .row-time {
+  font-size: 13px;
+}
+
+.tv-compact .row-wpm {
+  font-size: 16px;
+}
+
+/* ── Media Queries (device-based) ────────────────────────────────────────────── */
+
+@media (min-width: 1700px) {
+  .top-strip {
+    height: 108px;
+    padding: 14px 26px;
+  }
+
+  .brand-kicker {
+    font-size: 13px;
+  }
+
+  .brand-title {
+    font-size: 38px;
+  }
+
+  .brand-sub {
+    font-size: 14px;
+  }
+
+  .top-metrics {
+    width: min(54vw, 860px);
+    gap: 10px;
+  }
+
+  .metric-chip {
+    min-height: 70px;
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+  }
+
+  .metric-value {
+    font-size: 27px;
+  }
+
+  .arena {
+    height: calc(100vh - 108px);
+    grid-template-columns: 36% 64%;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .stage-card {
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .stage-eyebrow {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .stage-hero h1 {
+    font-size: clamp(42px, 3.8vw, 58px);
+  }
+
+  .stage-hero p {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .flow-line {
+    font-size: 16px;
+    padding: 6px 0;
+  }
+
+  .play-link {
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+
+  .leader-stage {
+    border-radius: 18px;
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .panel-title-row h2,
+  .panel-title-row h3 {
+    font-size: 25px;
+  }
+
+  .panel-title-row h3 {
+    font-size: 22px;
+  }
+
+  .panel-pulse,
+  .list-note,
+  .round-control label,
+  .round-range {
+    font-size: 12px;
+  }
+
+  .round-control select {
+    min-width: 260px;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+
+  .round-winner {
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 8px 10px;
+  }
+
+  .podium-grid {
+    gap: 10px;
+  }
+
+  .podium-card {
+    min-height: 168px;
+    border-radius: 14px;
+    padding: 12px;
+  }
+
+  .podium-medal {
+    font-size: 28px;
+  }
+
+  .podium-speed {
+    font-size: 24px;
+  }
+
+  .podium-name {
+    font-size: 24px;
+  }
+
+  .podium-meta {
+    font-size: 13px;
+  }
+
+  .leader-list {
+    gap: 7px;
+  }
+
+  .row {
+    grid-template-columns: 58px 1fr 102px 96px 180px;
+    min-height: 58px;
+    border-radius: 10px;
+    padding: 0 10px;
+  }
+
+  .row-rank {
+    font-size: 20px;
+  }
+
+  .row-name {
+    font-size: 20px;
+  }
+
+  .row-wpm,
+  .row-acc,
+  .row-time {
+    font-size: 15px;
+  }
+
+  .row-wpm {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 2400px) {
+  .brand-title {
+    font-size: 56px;
+  }
+
+  .metric-value {
+    font-size: 39px;
+  }
+
+  .stage-hero h1 {
+    font-size: clamp(70px, 5.4vw, 96px);
+  }
+
+  .stage-hero p {
+    font-size: 24px;
+  }
+
+  .flow-line {
+    font-size: 34px;
+  }
+
+  .play-link {
+    font-size: 24px;
+  }
+
+  .panel-title-row h2,
+  .panel-title-row h3 {
+    font-size: 40px;
+  }
+
+  .podium-card {
+    min-height: 272px;
+  }
+
+  .podium-medal {
+    font-size: 44px;
+  }
+
+  .podium-speed {
+    font-size: 40px;
+  }
+
+  .podium-name {
+    font-size: 44px;
+  }
+
+  .podium-meta,
+  .round-winner,
+  .row-wpm,
+  .row-acc,
+  .row-time,
+  .round-control select,
+  .round-range,
+  .panel-pulse,
+  .list-note {
+    font-size: 22px;
+  }
+
+  .row {
+    grid-template-columns: 86px 1fr 136px 136px 260px;
+    min-height: 90px;
+  }
+
+  .row-rank {
+    font-size: 30px;
+  }
+
+  .row-name {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .top-strip {
+    height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .top-metrics {
+    width: 100%;
+  }
+
+  .arena {
+    height: calc(100vh - 176px);
+    grid-template-columns: 1fr;
+  }
+
+  .title-stage {
+    grid-template-rows: auto auto auto;
+  }
+
+  .round-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .round-range {
+    text-align: left;
+  }
+}
+
+@media (max-width: 860px) {
+  html,
+  body {
+    overflow: auto;
+  }
+
+  .arena {
+    height: auto;
+  }
+
+  .podium-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .round-control {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .round-control select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .row {
+    grid-template-columns: 44px 1fr 70px;
+    grid-template-areas:
+      "rank name wpm"
+      "rank meta meta";
+    row-gap: 0;
+    min-height: 68px;
+    padding: 7px 10px;
+  }
+
+  .row-rank { grid-area: rank; }
+  .row-name { grid-area: name; font-size: 16px; }
+  .row-wpm { grid-area: wpm; justify-self: end; }
+  .row-acc { grid-area: meta; font-size: 12px; }
+  .row-time { display: none; }
+}

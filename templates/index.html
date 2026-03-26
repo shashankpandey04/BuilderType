@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BuilderType Challenge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="bg-layer"></div>
+
+  <header class="app-topbar">
+    <div class="brand-wrap">
+      <img src="{{ url_for('static', filename='awsclub.png') }}" alt="AWS Cloud Club" class="brand-logo" />
+      <div class="brand-text">
+        <span class="brand-eyebrow">AWS Cloud Clubs</span>
+        <span class="brand-title">BuilderType</span>
+      </div>
+    </div>
+
+    <nav class="top-actions">
+      <a href="{{ url_for('leaderboard_display') }}" class="top-link">Public Leaderboard Screen</a>
+    </nav>
+  </header>
+
+  <main class="screen">
+    <section class="hero-card">
+      <p class="hero-kicker">45-Second Typing Arena</p>
+      <h1>Build Speed<br />With Cloud Context</h1>
+      <p class="hero-copy">
+        Pick a challenge paragraph, hit start, and race the timer. Your score is
+        submitted automatically and appears on the live leaderboard screen.
+      </p>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <span class="stat-label">WPM</span>
+          <span class="stat-value" id="wpm">0</span>
+        </div>
+        <div class="stat-box timer-box" id="timer-box">
+          <span class="stat-label">Time</span>
+          <span class="stat-value" id="timer">45</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Accuracy</span>
+          <span class="stat-value" id="accuracy">100%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="challenge-card">
+      <div class="section-head">
+        <h2>Choose Scenario</h2>
+        <p>Type exactly what you see. Every keystroke counts.</p>
+      </div>
+
+      <div class="paragraph-selector" style="display:none">
+        <button class="para-btn active" data-para="0">Full Stack</button>
+        <button class="para-btn" data-para="1">Cloud Architecture</button>
+        <button class="para-btn" data-para="2">Builder Mode</button>
+        <button class="para-btn" data-para="3">Security</button>
+        <button class="para-btn" data-para="4">System Thinking</button>
+      </div>
+
+      <div class="typing-card" id="typing-area">
+        <div class="text-display" id="text-display"></div>
+        <input
+          type="text"
+          id="input-box"
+          class="input-box"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          disabled
+        />
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="name-modal">
+    <div class="modal-card">
+      <img src="{{ url_for('static', filename='awsclub.png') }}" alt="AWS Cloud Club" class="modal-logo" />
+      <div class="modal-title">Welcome to BuilderType</div>
+      <p class="modal-sub">Enter your name to start your timed typing run.</p>
+      <input
+        type="text"
+        id="player-name"
+        class="name-input"
+        placeholder="Your name (e.g. CloudBuilder)"
+        maxlength="30"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div class="name-error hidden" id="name-error">Please enter a name (1-30 characters)</div>
+      <div class="name-countdown hidden" id="name-countdown"></div>
+      <button class="btn-primary btn-full" id="enter-game-btn">Enter Arena</button>
+    </div>
+  </div>
+
+  <div class="result-overlay hidden" id="result-overlay">
+    <div class="result-card">
+      <div class="result-title" id="result-title">Round Complete</div>
+      <div class="result-stats">
+        <div class="r-stat">
+          <span class="r-label">WPM</span>
+          <span class="r-value" id="final-wpm">0</span>
+        </div>
+        <div class="r-stat">
+          <span class="r-label">Accuracy</span>
+          <span class="r-value" id="final-acc">0%</span>
+        </div>
+        <div class="r-stat">
+          <span class="r-label">Correct</span>
+          <span class="r-value" id="final-correct">0</span>
+        </div>
+        <div class="r-stat">
+          <span class="r-label">Errors</span>
+          <span class="r-value" id="final-errors">0</span>
+        </div>
+      </div>
+      <div class="result-rank" id="result-rank"></div>
+      <div class="global-rank" id="global-rank"></div>
+      <div class="result-actions">
+        <button class="btn-primary" id="retry-btn">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIZE POPUP -->
+  <div class="modal-overlay hidden" id="prize-modal">
+    <div class="modal-card prize-card">
+      <div class="prize-emoji" id="prize-emoji"></div>
+      <div class="modal-title" id="prize-title"></div>
+      <p class="modal-sub" id="prize-sub"></p>
+      <div class="prize-badge" id="prize-badge"></div>
+      <button class="btn-primary btn-full" id="prize-close-btn">Awesome! 🎉</button>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

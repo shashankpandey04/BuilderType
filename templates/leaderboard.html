@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BuilderType Live Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard.css') }}" />
+</head>
+<body>
+  <div class="screen-bg"></div>
+  <div class="screen-noise"></div>
+
+  <header class="top-strip">
+    <div class="brand-block">
+      <div class="brand-kicker">AWS CLOUD CLUBS</div>
+      <div class="brand-title">BuilderType Live Arena</div>
+      <div class="brand-sub">Secondary screen public leaderboard feed</div>
+    </div>
+
+    <div class="top-metrics">
+      <div class="metric-chip">
+        <span class="metric-label">local time</span>
+        <span class="metric-value" id="live-time">--:--:--</span>
+      </div>
+      <div class="metric-chip">
+        <span class="metric-label">next refresh</span>
+        <span class="metric-value" id="refresh-timer">--:--</span>
+      </div>
+      <div class="metric-chip">
+        <span class="metric-label">top speed</span>
+        <span class="metric-value" id="highest-wpm">0</span>
+      </div>
+      <div class="metric-chip">
+        <span class="metric-label">total players</span>
+        <span class="metric-value" id="total-players">0</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="arena">
+    <section class="title-stage">
+      <div class="stage-card stage-hero">
+        <div class="stage-eyebrow">WHAT IS THIS GAME?</div>
+        <h1>BuilderType</h1>
+        <p class="stage-lead">A live 45-second cloud typing sprint for speed + accuracy.</p>
+        <div class="stage-points">
+          <div class="stage-point">
+            <span class="point-title">1. Play</span>
+            <span class="point-copy">Go to the main screen and enter your name.</span>
+          </div>
+          <div class="stage-point">
+            <span class="point-title">2. Sprint</span>
+            <span class="point-copy">Type the cloud/dev paragraph before the timer ends.</span>
+          </div>
+          <div class="stage-point">
+            <span class="point-title">3. Climb</span>
+            <span class="point-copy">Your WPM + accuracy updates this leaderboard instantly.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-card stage-flow">
+        <div class="stage-eyebrow">HOW IT WORKS</div>
+        <div class="flow-line">1. Join at the main screen</div>
+        <div class="flow-line">2. Complete the 45-second typing sprint</div>
+        <div class="flow-line">3. Watch your rank update live here</div>
+      </div>
+
+      <div class="stage-card stage-link">
+        <div class="stage-eyebrow">PLAY STATION</div>
+        <a href="{{ url_for('index') }}" class="play-link">Open Main Challenge Screen</a>
+      </div>
+    </section>
+
+    <section class="leader-stage">
+      <div class="panel-title-row">
+        <h2>Current Champions</h2>
+        <div class="panel-tools">
+          <button class="voice-toggle" id="voice-toggle" type="button">Voice: ON</button>
+          <span class="panel-pulse" id="feed-status">live feed</span>
+        </div>
+      </div>
+
+      <div class="round-toolbar">
+        <div class="round-control">
+          <label for="round-select">Round Slot</label>
+          <select id="round-select">
+            <option value="current">Current 15-min round</option>
+            <option value="all">All-time attempts</option>
+          </select>
+        </div>
+        <div class="round-range" id="round-range">Current 15-min round</div>
+      </div>
+
+      <div class="round-winner" id="round-winner">Round winner will appear here.</div>
+
+      <div class="podium-grid" id="podium-grid">
+        <div class="empty-state">Waiting for first score...</div>
+      </div>
+
+      <div class="panel-title-row list-head">
+        <h3>Leaderboard</h3>
+        <span class="list-note">Top 12 performers</span>
+      </div>
+
+      <div class="leader-list" id="leader-list">
+        <div class="empty-state">Loading leaderboard...</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='leaderboard.js') }}"></script>
+</body>
+</html>
